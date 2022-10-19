@@ -1,35 +1,17 @@
-# 표준체중 구하기 : 
+#매주 1회 보고서 작성
 
-#남자 : 키m x 키m x 22
-#여자 : 키m x 키m x 21
+#- X 주차 주간보고 -
+#부서 :
+#이름 : 
+#업무 요약 :
 
-#조건1 표준 체중은 별도의 함수 내에서 계산
-    #함수명 : std_weight
-    #전달값 : 키(height), 성별(gender)
-#조건2 표준 체중은 소수점 둘쨰자리까지 표시
+#1주차부터50주차까지의 보고서 파일을 만드는 포로그램을 작성하시오
 
-# 키 175cm 남자의 표준 체중은 67.38kg 입니다.
+#조건 : 파일명은 '1주차.txt, 2주차.txt, ... 와 같이 만들기
 
-
-# 스스로 푼것
-def std_weight(gender, height):
-    if gender == "남자" :
-        print("키 {0} 남자의 표준 체중은 {1} 입니다.".format(height,round((height/100)**2*22, 2)))
-        return round((height/100)**2*22, 2)
-    else :
-        print("키 {0} 여자의 표준 체중은 {1} 입니다.".format(height,round((height/100)**2*21, 2)))
-
-std_weight("남자", 181)
-
-
-# 강의해설
-def std_weight(height, gender): #std_weight함수
-    if gender == "남자":
-        return height**2*22
-    else:
-        return height**2*21
-
-height = 175 #변수
-gender = "남자" #변수
-weight = round(std_weight(height/100, gender), 2)
-print("키 {0}cm {1}의 표준 체중은 {2}kg 입니다.".format(height, gender, weight))
+for i in range(1, 51):
+    with open(str(i) + "주차.txt", "w", encoding="utf8") as report_file:
+        report_file.write("- {0} 주차 주간보고 -".format(i))
+        report_file.write("\n부서 :")
+        report_file.write("\n이름 :")
+        report_file.write("\n업무 요약 :")

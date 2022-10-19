@@ -1,41 +1,35 @@
-#50명의 승객 / 
-# 조건1 운행소요시간 5-50분 난수로 정해짐
-# 조건2 5-15분 사이의 승객만 매칭
+# 표준체중 구하기 : 
 
-#출력문예제
-# [0] 1번째 손님(소요시간 : 15분)
-# [] 2번째 손님(소요시간 : 50분)
-# [0] 3번째 손님(소요시간 : 5분)
-# ...
-# [] 50번째 손님(소요시간 : 15분)
+#남자 : 키m x 키m x 22
+#여자 : 키m x 키m x 21
 
-# 총 탑승 승객 : 2 분
+#조건1 표준 체중은 별도의 함수 내에서 계산
+    #함수명 : std_weight
+    #전달값 : 키(height), 성별(gender)
+#조건2 표준 체중은 소수점 둘쨰자리까지 표시
 
-from random import *
-
-cnt = 0
-#총 탑승 승객의 수
-for i in range(1, 51):
-    time = randrange(5, 51)  # 5에서 51분 소요 시간
-    if 5 <= time <= 15:  # 5분에서 15분 사이의 손님, 탑승 승객수 증가 처리
-        print("[o] {0}번째 손님(소요시간 : {1}분)".format(i,time))
-        cnt+=1
-    else:  #매칭 실패한 경우
-        print("[ ] {0}번째 손님(소요시간 : {1}분)".format(i, time))
+# 키 175cm 남자의 표준 체중은 67.38kg 입니다.
 
 
-print("총 탑승 승객 : {0} 분".format(cnt))
+# 스스로 푼것
+def std_weight(gender, height):
+    if gender == "남자" :
+        print("키 {0} 남자의 표준 체중은 {1} 입니다.".format(height,round((height/100)**2*22, 2)))
+        return round((height/100)**2*22, 2)
+    else :
+        print("키 {0} 여자의 표준 체중은 {1} 입니다.".format(height,round((height/100)**2*21, 2)))
 
-# 내가 푼 방법
-from random import *
+std_weight("남자", 181)
 
-guest = 0
-for i in range(1, 51):
-    guest_time = randint(5, 51)
-    if 5 <= guest_time <= 15:
-        print("[0] {0}번째 손님 (소요시간 : {1}".format(i, guest_time))
-        guest += 1
+
+# 강의해설
+def std_weight(height, gender): #std_weight함수
+    if gender == "남자":
+        return height**2*22
     else:
-        print("[ ] {0}번째 손님 (소요시간 : {1}".format(i, guest_time))
+        return height**2*21
 
-print(guest)
+height = 175 #변수
+gender = "남자" #변수
+weight = round(std_weight(height/100, gender), 2)
+print("키 {0}cm {1}의 표준 체중은 {2}kg 입니다.".format(height, gender, weight))

@@ -1,42 +1,41 @@
-# 댓글 작성자중 1명은 치킨 3명은 커피
-#조건 1. 20명 작성/ 아이디는 1~20 2. 무작위로 결정+중복 불가 3. random, shuffle과 sample 사용할것
+#50명의 승객 / 
+# 조건1 운행소요시간 5-50분 난수로 정해짐
+# 조건2 5-15분 사이의 승객만 매칭
 
-#출력예제
-# --당첨자 발표--
-# 치킨 당첨자 : 1
-# 커피 당첨자 : [2,3,4]
-# --축하합니다--
+#출력문예제
+# [0] 1번째 손님(소요시간 : 15분)
+# [] 2번째 손님(소요시간 : 50분)
+# [0] 3번째 손님(소요시간 : 5분)
+# ...
+# [] 50번째 손님(소요시간 : 15분)
 
-# 활용예제
-# from random import *
-# lst = [1,2,3,4,5]
-# print(lst)
-# shuffle(lst)
-# print(lst)
-# print(sample(lst,1))   # lst인자(리스트)에서 1개만큼 뽑는다는 뜻
+# 총 탑승 승객 : 2 분
 
 from random import *
-users = range (1, 21)   # 1부터 20까지 숫자를 생성
-# print(type(users))
-users = list(users)
-# print(type(users))
 
-shuffle(users)
-print(users)
-
-winners = sample(users, 4)   # 4명중에서 1명은 치킨 3명은 커피
-print( "--당첨자 발표--")
-print("치킨 당첨자 : {0}".format(winners[0]))
-print("커피 당첨자 : {0}".format(winners[1:]))
-print("--축하합니다--")
+cnt = 0
+#총 탑승 승객의 수
+for i in range(1, 51):
+    time = randrange(5, 51)  # 5에서 51분 소요 시간
+    if 5 <= time <= 15:  # 5분에서 15분 사이의 손님, 탑승 승객수 증가 처리
+        print("[o] {0}번째 손님(소요시간 : {1}분)".format(i,time))
+        cnt+=1
+    else:  #매칭 실패한 경우
+        print("[ ] {0}번째 손님(소요시간 : {1}분)".format(i, time))
 
 
-#스스로 푼 방법
+print("총 탑승 승객 : {0} 분".format(cnt))
+
+# 내가 푼 방법
 from random import *
-lst = range (1, 21)
-lst = list(lst)
-shuffle(lst)
 
-당첨자 = sample(lst, 4)
-print("치킨 당첨자{0}".format(당첨자[0]))
-print("커피당첨자는{0} 입니다.".format(당첨자[1:]))
+guest = 0
+for i in range(1, 51):
+    guest_time = randint(5, 51)
+    if 5 <= guest_time <= 15:
+        print("[0] {0}번째 손님 (소요시간 : {1}".format(i, guest_time))
+        guest += 1
+    else:
+        print("[ ] {0}번째 손님 (소요시간 : {1}".format(i, guest_time))
+
+print(guest)

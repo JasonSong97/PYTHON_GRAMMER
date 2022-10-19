@@ -1,62 +1,47 @@
-#부동산 프로그램 만들기
+# 조건1 : 1보다 작거나 숫자가 아닌 입력값이 들어올 떄는 ValueError로 처리
+#         출력 메시지 : "잘못된 값을 입력하였습니다."
+# 조건2 : 대기 손님이 주문할 수 있는 총 치킨의 양은 10마리로 한정
+#         치킨 소진 시 사용자정의 에러[SoldOutError]를 발생키기고 프로그램 종료
+#         출력 메시지 : "재고가 소진되어 더 이상 주문을 받지 않습니다."
 
-# 출력예제
-# 총 3대의 매물이 있습니다.
-# 강남 아파트 매매 10억 2010년
-# 마포 오피스텔 전세 5억 2007년
-# 송파 빌라 월세 500/50 2000년
+# 코드
+# chicken = 10
+# waiting = 1 # 홀 안에는 현재 만석 대기번호 1부터 시작
+# while(True):
+#         print("[남은 치킨 : {0}]".format(chicken))
+#         order = int(input("치킨 몇 마리 주문하시겠습니까?"))
+#         if order > chicken: # 남은 치킨보다 주문량이 많을 떄
+#             print("재료가 부족합니다.")
+#         else:
+#             print("[대기번호 {0}] {1} 마리 주문이 완료되었습니다."\
+#                 .format(waiting, order))
+#             waiting += 1
+#             chicken -= order
 
-# [코드]
+#
+class SoldOutError(Exception):
+    pass
 
-# class House:
-#     #매물 초기화
-#     def __init__(self, location, house_type, deal_type, price, completion_year):
-#         pass
+chicken = 10
+waiting = 1 
+while(True):
+    try:
+        print("[남은 치킨 : {0}]".format(chicken))
+        order = int(input("치킨 몇 마리 주문하시겠습니까?"))
+        if order > chicken:  #남은 치킨 보다 주문량이 많을때
+            print("재료가 부족합니다.")
+        elif order <= 0:
+            raise ValueError
+        else:
+            print("[대기번호 {0}] {1} 마리 주문이 완료되었습니다."\
+                .format(waiting, order))
+            waiting += 1
+            chicken -= order
 
-#     #매물 정보 표시
-#     def show_detail(self):
-#         pass
-
-
-class House:
-    #매물 초기화
-    def __init__(self, location, house_type, deal_type, price, completion_year):
-        self.location = location
-        self.house_type = house_type
-        self.deal_type = deal_type
-        self.price = price
-        self.completion_year = completion_year
-
-    #매물 정보 표시
-    def show_detail(self):
-        print(self.location, self.house_type, self.deal_type, \
-            self.price, self.completion_year)
-
-houses = []
-house1 = House("강남", "아파트", "매매", "10억", "2010년")
-house2 = House("마포", "오피스텔", "전세", "5억", "2007년")
-house3 = House("송파", "빌라", "월세", "500/50", "2000년")
-
-houses.append(house1)
-houses.append(house2)
-houses.append(house3)
-
-print("총 {0}대의 매물이 있습니다.".format(len(houses)))
-for house in houses:
-    house.show_detail()
-
-
-class House:
-    def __init__(self, location, house_type, deal_type, price, completion_year):
-        self.location = location
-        self.house_type = house_type
-        self.deal_type = deal_type
-        self.price = price
-        self.completion_year = completion_year
-    def show_detail(self):
-        print(self.location, self.house_type, self.deal_type, self.price, self.completion_year)
-
-house = []
-house1 = House("강남", "아파트", "매매", "10억", "2010년")
-house2 = House("마포", "오피스텔", "전세", "5억", "2007년")
-house3 = House("송파", "빌라", "월세", "500/50", "2000년")
+        if chicken == 0:
+            raise SoldOutError
+    except ValueError:
+        print("잘못된 값을 입력하였습니다.")
+    except SoldOutError:
+        print("재고가 소진되어 더 이상 주문을 받지 않습니다.")
+        break #while 탈출
